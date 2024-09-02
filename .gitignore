@@ -1,0 +1,7 @@
+playground.ipynb
+.DS_Store
+.ipynb_checkpoints
+__pycache__/
+.vscode/*
+hf-llama-2.privkey
+**/old/**
