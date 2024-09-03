@@ -14,16 +14,41 @@ Our 8 few-shot-based experiments simply use the first 8 lines of each file.
 
 ## Adapter Checkpoints:
 Here, we provide the download links for the adapter checkpoints resulting from our fine-tuning on the CRAFT-XL versions. 
-* BioQA:
-* CommonSenseQA (CSQA):
-* MedQA:
-* RecipeGen:
-* Summarization: 
+* BioQA: [https://huggingface.co/ingoziegler/CRAFT-BioQA-XL](https://huggingface.co/ingoziegler/CRAFT-BioQA-XL)
+* CommonSenseQA (CSQA): [https://huggingface.co/ingoziegler/CRAFT-CommonSenseQA-XL](https://huggingface.co/ingoziegler/CRAFT-CommonSenseQA-XL)
+* MedQA: [https://huggingface.co/ingoziegler/CRAFT-MedQA-XL](https://huggingface.co/ingoziegler/CRAFT-MedQA-XL)
+* RecipeGen: [https://huggingface.co/ingoziegler/CRAFT-RecipeGen-XL](https://huggingface.co/ingoziegler/CRAFT-RecipeGen-XL)
+* Summarization: [https://huggingface.co/ingoziegler/CRAFT-Summarization-XL](https://huggingface.co/ingoziegler/CRAFT-Summarization-XL)
 
 ## Running CRAFT
 Our experiments are based around Python 3.10.9, Pytorch 2.2.1, and vllm 0.4.1. For details, check `requirements.txt`.
 
 The pipeline is based around 5 steps that have to be performed sequentially.
+
+### If you want to CRAFT your own dataset:
+In general, you have to follow the same steps as if you were reproducing our experiments [as described below](#reproducing-our-experiments).
+
+#### Embedding Database
+You can either use our embedding database and corpora mentioned under [Step 0 below](#step-0-download-required-files-and-set-up-the-directory-structure), or you can extend our embedding database with your public/private corpora, or you can create your own specialized embedding database with corresponding corpora using your private or other public datasets.
+
+Currently, our code only features the experiments from our paper ready, so you will need to adapt the scripts and run configs a bit.
+You can still use large parts from our run configs from `code/run_configs/` as the baseline, but you will need to change the paths pointing to our databases and corpora files.
+Additionally, when running finetuning and evaluation, you will need to write code for your task sample design, as well as provide your evaluation dataset and format it accordingly.
+Nonetheless, the general structure stays the same.
+
+To create an embedding database, we provide the files we used to embed our corpora and create the database.
+* Run `python3 code/create_embeddings.py $(code/run_configs/embed/stackexchange.cfg)`
+* This will create an `.h5` database with 16-bit precision NumPy arrays using [multi-qa-MiniLM-L6-cos-v1](https://sbert.net/docs/sentence_transformer/pretrained_models.html) from the SentenceTransformer suite as the embedding model.
+* The embedding database is set up in a way where each document's embedding corresponds to one 'row' in the H5 database
+* Therefore, you can retrieve documents by enumerating the documents in your corpus, and retrieve the corresponding array from the embedding database, or vice-versa.
+
+#### New tasks
+* You need to create 8 to 32 few-shots with the content and design of your task. See our [provided few-shots](#synthetic-datasets) as examples for the different tasks.
+    * Place them under `assets/{task}/few-shot/corpus-task-32.jsonl`
+* The rest of the pipeline stays the same. Continue with [Step 1 from above](#step-1-corpus-retrieval)
+
+
+If you have any questions, feel free to open a GitHub issue.
 
 ### Reproducing our experiments
 Have a look at `code/utils/args.py` for all available runtime arguments.
@@ -71,28 +96,5 @@ The few-shots for all tasks are also available in `assets/{task}/few-shot/corpus
 
 Your are done! Should you have any questions, feel free to open a GitHub issue.
 
-
-### If you want to CRAFT your own dataset:
-#### Embedding Database
-You can either use our embedding database and corpora mentioned under [Step 0 above](#step-0-download-required-files-and-set-up-the-directory-structure), or you can create your own specialized embedding database with corresponding corpora using your private or other public datasets.
-Currently, our code only has the experiments from our paper ready, so you will need to adapt the scripts and run configs a bit.
-You can still use large parts from our run configs from `code/run_configs/` as the baseline, but you will need to change the paths pointing to our databases and corpora files.
-Additionally, when running finetuning and evaluation, you will need to write code for your task sample design, as well as provide your evaluation dataset and format it accordingly.
-Nonetheless, the general structure stays the same.
-
-To create an embedding database, we provide the files we used to embed our corpora and create the database.
-* Run `python3 code/create_embeddings.py $(code/run_configs/embed/stackexchange.cfg)`
-* This will create an `.h5` database with 16-bit precision NumPy arrays using [multi-qa-MiniLM-L6-cos-v1](https://sbert.net/docs/sentence_transformer/pretrained_models.html) form the SentenceTransformer suite as the embedding model.
-* The embedding database is set up in a way where each document's embedding corresponds to one 'row' in the H5 database
-* Therefore, you can retrieve documents by enumerating the documents in your corpus, and retrieve the corresponding array from the embedding database, or vice-versa.
-
-#### New tasks
-* You need to create 8 to 32 few-shots with the content and design of your task. See our [provided few-shots](#synthetic-datasets) as examples for the different tasks.
-    * Place them under `assets/{task}/few-shot/corpus-task-32.jsonl`
-* The rest of the pipeline stays the same. Continue with [Step 1 from above](#step-1-corpus-retrieval)
-
-
-If you have any questions, feel free to open a GitHub issue.
-
 ## Citation
-
+tbd
