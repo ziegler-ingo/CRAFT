@@ -23,7 +23,7 @@ Here, we provide the download links for the adapter checkpoints resulting from o
 ## Running CRAFT
 Our experiments are based around Python 3.10.9, Pytorch 2.2.1, and vllm 0.4.1. For details, check `requirements.txt`.
 
-The pipeline is based around 5 steps that have to be performed sequentially.
+The pipeline consists of 5 steps that have to be performed sequentially.
 
 ### If you want to CRAFT your own dataset:
 In general, you have to follow the same steps as if you were reproducing our experiments [as described below](#reproducing-our-experiments).
@@ -45,7 +45,7 @@ To create an embedding database, we provide the files we used to embed our corpo
 #### New tasks
 * You need to create 8 to 32 few-shots with the content and design of your task. See our [provided few-shots](#synthetic-datasets) as examples for the different tasks.
     * Place them under `assets/{task}/few-shot/corpus-task-32.jsonl`
-* The rest of the pipeline stays the same. Continue with [Step 1 from above](#step-1-corpus-retrieval)
+* The rest of the pipeline stays the same. Continue with [Step 1 from below](#step-1-corpus-retrieval)
 
 
 If you have any questions, feel free to open a GitHub issue.
