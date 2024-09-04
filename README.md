@@ -1,5 +1,8 @@
 # CRAFT: Corpus Retrieval and Augmentation for Fine-Tuning
-This repository contains the code, datasets, and additionally required files for the paper [TODO: Enter arxiv link here].
+
+![The CRAFT Pipeline](img/pipeline.png)
+
+This repository contains the code, datasets, and additionally required files for the paper [CRAFT Your Dataset: Task-Specific Synthetic Data Generation Through Corpus Retrieval and Augmentation](https://arxiv.org/abs/2409.02098).
 
 ## Synthetic Datasets
 We make all size variations of our crafted datasets available on Hugging Face:
@@ -11,6 +14,38 @@ We make all size variations of our crafted datasets available on Hugging Face:
 
 To use our human-written few-shots, simply filter the dataset for `is_few_shot == 1`, or load the `.jsonl` from `assets/{task}/few-shot/corpus-task-32.jsonl`.
 Our 8 few-shot-based experiments simply use the first 8 lines of each file.
+
+## Performance
+Models trained on our synthetic datasets match the performance of general instruction-tuned LLMs and can even outperform training on human-curated data for tasks like summarization.
+
+![CRAFT Performance](img/main_results.png)
+
+Our synthesized data is also more robust against distribution shifts because we do not generate data for a specific test set, but for an overall task.
+This can be seen from the 5-gram overlap between our crafted datasets and the test sets, and comparing it to the in-domin train sets.
+At maximum, our synthetic datasets have a 0.4% overlap, while in-domain train sets range up to 17.9% 5-gram overlap (see table below).
+
+|                                               | BioQA | CSQA | MedQA | Summarization |
+|-----------------------------------------------|-------|------|-------|---------------|
+| CRAFT<sub>XS</sub>                            | 0.0%  | 0.0% | 0.0%  | 0.0%          |
+| CRAFT<sub>S</sub>                             | 0.0%  | 0.1% | 0.1%  | 0.0%          |
+| CRAFT<sub>M</sub>                             | 0.0%  | 0.2% | 0.1%  | 0.1%          |
+| CRAFT<sub>L</sub>                             | 0.0%  | 0.4% | 0.3%  | 0.2%          |
+| CRAFT<sub>XL</sub>                            | 0.0%  | 0.2% | 0.2%  | 0.2%          |
+| Baseline <small>(In-domain Train Set)</small> | **17.9%** | **4.4%** | **1.1%**  | **0.3%**          |
+
+
+Consequently, CRAFT's performance is stronger and more consistent across other test sets, e.g., MMLU.
+
+| Dataset                            | Baseline | CRAFT<sub>XL</sub> |
+|------------------------------------|----------|--------------------|
+| In-domain                          | **89.9** | 78.1               |
+| MMLU<sub>Medical Genetics</sub>    | 60.0     | **69.0**           |
+| MMLU<sub>Anatomy</sub>             | 55.6     | **57.0**           |
+| MMLU<sub>High School Biology</sub> | **69.3** | 67.4               |
+| MMLU<sub>College Biology</sub>     | 66.7     | **74.3**           |
+| MMLU-Avg                           | 62.9     | **66.9**           |
+
+
 
 ## Adapter Checkpoints:
 Here, we provide the download links for the adapter checkpoints resulting from our fine-tuning on the CRAFT-XL versions. 
@@ -43,9 +78,11 @@ To create an embedding database, we provide the files we used to embed our corpo
 * Therefore, you can retrieve documents by enumerating the documents in your corpus, and retrieve the corresponding array from the embedding database, or vice-versa.
 
 #### New tasks
-* You need to create 8 to 32 few-shots with the content and design of your task. See our [provided few-shots](#synthetic-datasets) as examples for the different tasks.
+* You need to create 8 to 32 few-shots with the content and design of your task. See our [provided few-shots](#synthetic-datasets) and the image below as examples for the different tasks.
     * Place them under `assets/{task}/few-shot/corpus-task-32.jsonl`
 * The rest of the pipeline stays the same. Continue with [Step 1 from below](#step-1-corpus-retrieval)
+
+![Few-Shot Design](img/few_shot.png)
 
 
 If you have any questions, feel free to open a GitHub issue.
@@ -97,4 +134,16 @@ The few-shots for all tasks are also available in `assets/{task}/few-shot/corpus
 Your are done! Should you have any questions, feel free to open a GitHub issue.
 
 ## Citation
-tbd
+If you use our code, datasets, or model checkpoints in your research, please cite the following paper:
+
+```
+@misc{ziegler2024craft,
+      title={CRAFT Your Dataset: Task-Specific Synthetic Dataset Generation Through Corpus Retrieval and Augmentation}, 
+      author={Ingo Ziegler and Abdullatif Köksal and Desmond Elliott and Hinrich Schütze},
+      year={2024},
+      eprint={2409.02098},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2409.02098}, 
+}
+```
