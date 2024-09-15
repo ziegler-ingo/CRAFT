@@ -93,11 +93,19 @@ We provide our pre-filled argparse run configs for all experiments under `code/r
 The few-shots for all tasks are also available in `assets/{task}/few-shot/corpus-task-32.jsonl`, so you can start running/reproducing our experiments.
 
 #### Step 0: Download required files and set up the directory structure
-* Embedding database: Download our embedding database from [TODO: Enter link here] and place it under `datasets/embeddings.h5`
+* Embedding database: Download our embedding database from [here](http://data.cis.lmu.de/data/craft/embeddings.h5) and place it under `datasets/embeddings.h5`
+    * Please note that we host the files on an `http` address. If your browser autocompletes to `https`, you may need to manually adjust the link.
+    * We provide the sha256 checksum for the file in this repository in `checksum`
 * C4: Download the 305GB `en` version of C4 from [Hugging Face](https://huggingface.co/datasets/allenai/c4). We used the Git download version. It is not mentioned there that you have to run `git lfs checkout` after everything is downloaded so that the lazy files are actually linked to the downloaded files. 
-* Wikipedia: Download our cleaned Wikipedia corpus samples from [TODO: Enter link here] and place them under `datasets/wikipedia/cleaned/`
-* WikiHow: Download our cleaned WikiHow corpus samples from [TODO: Enter link here] and place them under `datasets/wikihow/cleaned/`
-* StackExchange: Download our cleaned StackExchange corpus samples from [TODO: Enter link here] and place them under `datasets/stackexchange/cleaned/`
+* Wikipedia: Download our cleaned Wikipedia corpus samples from [here](http://data.cis.lmu.de/data/craft/wikipedia_cleaned.tar.gz) and place them under `datasets/wikipedia/cleaned/`
+    * Please note that we host the files on an `http` address. If your browser autocompletes to `https`, you may need to manually adjust the link.
+    * We provide the sha256 checksum for the file in this repository in `checksum`
+* WikiHow: Download our cleaned WikiHow corpus samples from [here](http://data.cis.lmu.de/data/craft/wikihow_cleaned.tar.gz) and place them under `datasets/wikihow/cleaned/`
+    * Please note that we host the files on an `http` address. If your browser autocompletes to `https`, you may need to manually adjust the link.
+    * We provide the sha256 checksum for the file in this repository in `checksum`
+* StackExchange: Download our cleaned StackExchange corpus samples from  [here](http://data.cis.lmu.de/data/craft/stackexchange_cleaned.tar.gz)  and place them under `datasets/stackexchange/cleaned/`
+    * Please note that we host the files on an `http` address. If your browser autocompletes to `https`, you may need to manually adjust the link.
+    * We provide the sha256 checksum for the file in this repository in `checksum`
 * Make sure that each task folder under `assets/` has the following subfolder available: `assets/{task}/corpus_samples/`, `assets/{task}/outputs/`, `assets/{task}/results/`, `assets/{task}/task_samples/`
 * Create a `model_ckpts` directory. All LoRA adapters will be saved here
 * Create a `models/hf_models` directory and place the model you want to use for task sample creation in there (e.g. Mistral 7B Instruct v0.2), as well as the model you want to fine-tune (e.g. Mistral 7B v0.2), and the model you want to evaluate again (e.g. Mistral 7B Instruct v0.2, too). If you evaluate a generative task, such as summarization, you should also load LLaMA 3 70B Instruct into this directory.
