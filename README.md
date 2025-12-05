@@ -150,7 +150,7 @@ If you use our code, datasets, or model checkpoints in your research, please cit
 
 ```
 @article{ziegler2025craft,
-    author = {Ziegler, Ingo and Köksal, Abdullatif and Elliott, Desmond and Schütze, Hinrich},
+    author={Ziegler, Ingo and K{\"o}ksal, Abdullatif and Elliott, Desmond and Sch{\"u}tze, Hinrich},
     title = {CRAFT Your Dataset: Task-Specific Synthetic Dataset Generation Through Corpus Retrieval and Augmentation},
     journal = {Transactions of the Association for Computational Linguistics},
     volume = {13},
