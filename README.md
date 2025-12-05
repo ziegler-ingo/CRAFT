@@ -149,13 +149,17 @@ Your are done! Should you have any questions, feel free to open a GitHub issue.
 If you use our code, datasets, or model checkpoints in your research, please cite the following paper:
 
 ```
-@misc{ziegler2024craft,
-      title={CRAFT Your Dataset: Task-Specific Synthetic Dataset Generation Through Corpus Retrieval and Augmentation}, 
-      author={Ingo Ziegler and Abdullatif Köksal and Desmond Elliott and Hinrich Schütze},
-      year={2024},
-      eprint={2409.02098},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2409.02098}, 
+@article{ziegler2025craft,
+    author = {Ziegler, Ingo and Köksal, Abdullatif and Elliott, Desmond and Schütze, Hinrich},
+    title = {CRAFT Your Dataset: Task-Specific Synthetic Dataset Generation Through Corpus Retrieval and Augmentation},
+    journal = {Transactions of the Association for Computational Linguistics},
+    volume = {13},
+    pages = {1693-1721},
+    year = {2025},
+    month = {12},
+    issn = {2307-387X},
+    doi = {10.1162/TACL.a.56},
+    url = {https://doi.org/10.1162/TACL.a.56},
+    eprint = {https://direct.mit.edu/tacl/article-pdf/doi/10.1162/TACL.a.56/2568491/tacl.a.56.pdf},
 }
 ```
